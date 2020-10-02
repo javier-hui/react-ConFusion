@@ -29,8 +29,8 @@ class DishDetail extends Component {
     renderComments(comments) {
         if (comments != null) {
             const list = comments.map((comment) =>
-                <li key={comment.id} className="py-3">{comment.comment}<br />-- {comment.author}, {comment.date}</li>
-                
+                <li key={comment.id} className="py-3">{comment.comment}<br />-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</li>
+
             );
             return (
                 <div>
@@ -47,15 +47,16 @@ class DishDetail extends Component {
     }
 
     render() {
-        let selectedDish = this.props.selectedDish;
-
+        let selectedDish = this.props.dish;
         return (
-            <div className="row">
-                <div className="col-12 col-md-5 m-1">
-                    {this.renderDish(selectedDish)}
-                </div>
-                <div className="col-12 col-md-5 m-1">
-                    {this.renderComments(selectedDish == null ? null : selectedDish.comments)}
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 col-md-5 m-1">
+                        {this.renderDish(selectedDish)}
+                    </div>
+                    <div className="col-12 col-md-5 m-1">
+                        {this.renderComments(selectedDish == null ? null : selectedDish.comments)}
+                    </div>
                 </div>
             </div>
         );
